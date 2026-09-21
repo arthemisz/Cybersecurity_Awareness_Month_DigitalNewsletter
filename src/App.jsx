@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Shield, Check, X, Sun, Moon, ArrowDown } from 'lucide-react';
+import WeekNavigation from './components/WeekNavigation';
 
 /* ─────────────────────────────────────────────────────────────────────
    DATA
@@ -625,32 +626,14 @@ export default function App() {
       </section>
 
       {/* ── STICKY TIMELINE NAV — continuous scroll guide ─────────── */}
-      <div id="briefs" className="filter-bar">
-        <div className="timeline-nav-inner">
-          <div className="timeline-nav-pills">
-            {WEEKS.map(w => (
-              <button
-                key={w.id}
-                className={`filter-pill ${activeSection === w.id ? 'active' : ''}`}
-                aria-pressed={activeSection === w.id}
-                onClick={() => scrollToSection(w.id)}
-              >
-                <span className="pill-dot" />
-                {w.navLabel}
-              </button>
-            ))}
-            <button
-              className={`filter-pill ${activeSection === 'register' ? 'active' : ''}`}
-              aria-pressed={activeSection === 'register'}
-              onClick={() => scrollToSection('register')}
-            >
-              Register free
-            </button>
-          </div>
-          <div className="timeline-nav-hint">
-            <span className="live-dot" />
-            <span>Continuous 4-Week Feed</span>
-          </div>
+      <div id="briefs" className="sticky top-[52px] z-40 w-full bg-[#09090b]/95 backdrop-blur-md px-4 sm:px-6 lg:px-8 pt-4">
+        <div className="max-w-[1400px] mx-auto">
+          <WeekNavigation
+            weeks={WEEKS}
+            activeSection={activeSection}
+            onSelectSection={scrollToSection}
+            showRegister={true}
+          />
         </div>
       </div>
 
