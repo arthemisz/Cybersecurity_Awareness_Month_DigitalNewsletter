@@ -57,10 +57,10 @@ export default function HeroCard({ week, onOpenReader }) {
 
         {/* Master Editorial Title & Subtitle */}
         <div className="space-y-3">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-neutral-100 dark:text-neutral-100 light:text-neutral-900 group-hover:text-cyan-200 dark:group-hover:text-cyan-200 light:group-hover:text-cyan-900 transition-colors">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-normal text-neutral-100 dark:text-neutral-100 light:text-neutral-900 group-hover:text-cyan-200 dark:group-hover:text-cyan-200 light:group-hover:text-cyan-900 transition-colors" style={{ fontStretch: 'normal', letterSpacing: 'normal', transform: 'none' }}>
             {week.title}
           </h2>
-          <p className="text-sm sm:text-base text-neutral-300 dark:text-neutral-300 light:text-neutral-600 leading-relaxed font-sans max-w-3xl">
+          <p className="text-sm sm:text-base text-neutral-300 dark:text-neutral-300 light:text-neutral-600 leading-relaxed font-serif max-w-3xl" style={{ fontStretch: 'normal', letterSpacing: 'normal', lineHeight: 1.5 }}>
             {week.subtitle}
           </p>
         </div>

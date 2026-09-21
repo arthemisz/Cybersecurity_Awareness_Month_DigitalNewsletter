@@ -100,21 +100,21 @@ export default function DispatchReaderModal({ week, isOpen, onClose }) {
               <span>[{week.readTime}]</span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-neutral-100 dark:text-neutral-100 light:text-neutral-900 leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-normal text-neutral-100 dark:text-neutral-100 light:text-neutral-900 leading-tight" style={{ fontStretch: 'normal', letterSpacing: 'normal', transform: 'none' }}>
               {week.title}
             </h1>
 
-            <p className="text-base sm:text-lg text-neutral-300 dark:text-neutral-300 light:text-neutral-700 leading-relaxed font-sans max-w-3xl">
+            <p className="text-base sm:text-lg text-neutral-300 dark:text-neutral-300 light:text-neutral-700 leading-relaxed font-serif max-w-3xl" style={{ fontStretch: 'normal', letterSpacing: 'normal', lineHeight: 1.5 }}>
               {week.subtitle}
             </p>
           </div>
 
           {/* Overview text */}
           <div className="space-y-4 max-w-3xl">
-            <h3 className="text-sm font-mono uppercase tracking-wider text-cyan-400 font-semibold">
+            <h3 className="text-sm font-mono uppercase tracking-wider text-cyan-400 font-semibold" style={{ fontStretch: 'normal', letterSpacing: 'normal', transform: 'none' }}>
               // THREAT CONTEXT & ARCHITECTURAL OVERVIEW
             </h3>
-            <p className="text-neutral-300 dark:text-neutral-300 light:text-neutral-700 text-base leading-relaxed">
+            <p className="text-neutral-300 dark:text-neutral-300 light:text-neutral-700 text-base leading-relaxed font-serif" style={{ fontStretch: 'normal', letterSpacing: 'normal', lineHeight: 1.5 }}>
               {editorial?.overview}
             </p>
           </div>

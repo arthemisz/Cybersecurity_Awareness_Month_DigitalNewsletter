@@ -26,7 +26,7 @@ export default function StatCard({ week }) {
 
         {/* Big Impact Number */}
         <div className="space-y-1 mb-4">
-          <div className="text-4xl sm:text-5xl font-extrabold tracking-tight text-neutral-100 dark:text-neutral-100 light:text-neutral-900 font-sans">
+          <div className="text-4xl sm:text-5xl font-extrabold tracking-normal text-neutral-100 dark:text-neutral-100 light:text-neutral-900 font-sans" style={{ fontStretch: 'normal', letterSpacing: 'normal', transform: 'none' }}>
             {stat.primaryValue}
           </div>
           <div className="text-sm font-semibold text-cyan-400 dark:text-cyan-400 light:text-cyan-700 font-sans">

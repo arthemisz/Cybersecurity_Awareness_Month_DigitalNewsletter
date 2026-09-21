@@ -56,7 +56,7 @@ export default function ParticipantStrip({
             </span>
           </div>
 
-          <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-neutral-100 dark:text-neutral-100 light:text-neutral-900 font-sans">
+          <h3 className="text-xl sm:text-2xl font-bold tracking-normal text-neutral-100 dark:text-neutral-100 light:text-neutral-900 font-sans" style={{ fontStretch: 'normal', letterSpacing: 'normal', transform: 'none' }}>
             Week {currentWeek.weekNumber} Pushed to{' '}
             <span className="text-cyan-400 font-mono underline decoration-cyan-500/40 decoration-2 underline-offset-4">
               {enrolledCount.toLocaleString()} Enrolled Defenders

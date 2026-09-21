@@ -378,12 +378,12 @@ function Drawer({ card, onClose }) {
           </div>
 
           {/* Title */}
-          <h2 style={{ fontFamily:"'Instrument Serif', Georgia, serif",fontSize:'clamp(1.5rem,3.5vw,2.2rem)',fontWeight:400,letterSpacing:'-0.02em',lineHeight:1.15,color:'var(--text)',marginBottom:16 }}>
+          <h2 style={{ fontFamily:"'Instrument Serif', 'Cormorant Garamond', Georgia, serif",fontSize:'clamp(1.5rem,3.5vw,2.2rem)',fontWeight:400,fontStretch:'normal',letterSpacing:'normal',transform:'none',lineHeight:1.15,color:'var(--text)',marginBottom:16 }}>
             {card.title}
           </h2>
 
           {/* Excerpt */}
-          <p style={{ fontFamily:"'Instrument Serif', Georgia, serif",fontSize:15,color:'var(--text-2)',lineHeight:1.8,marginBottom:28,letterSpacing:'-0.01em' }}>
+          <p style={{ fontFamily:"'Cormorant Garamond', 'Instrument Serif', Georgia, serif",fontSize:16,fontStretch:'normal',letterSpacing:'normal',lineHeight:1.5,color:'var(--text-2)',marginBottom:28 }}>
             {card.excerpt}
           </p>
 
@@ -681,10 +681,10 @@ export default function App() {
 
           {/* Left copy */}
           <div>
-            <h2 style={{ fontFamily:"'Instrument Serif', Georgia, serif",fontSize:'clamp(1.9rem,4vw,3rem)',fontWeight:400,letterSpacing:'-0.02em',lineHeight:1.1,color:'var(--text)',marginBottom:18 }}>
+            <h2 style={{ fontFamily:"'Instrument Serif', 'Cormorant Garamond', Georgia, serif",fontSize:'clamp(1.9rem,4vw,3rem)',fontWeight:400,fontStretch:'normal',letterSpacing:'normal',transform:'none',lineHeight:1.1,color:'var(--text)',marginBottom:18 }}>
               <span style={{ fontFamily:"'Imperial Script', cursive",fontSize:'1.35em',lineHeight:0.85,marginRight:'0.02em' }}>R</span>egister your team.
             </h2>
-            <p style={{ fontFamily:"'Instrument Serif', Georgia, serif",fontSize:15,color:'var(--text-2)',lineHeight:1.8,marginBottom:32,maxWidth:'40ch',letterSpacing:'-0.01em' }}>
+            <p style={{ fontFamily:"'Cormorant Garamond', 'Instrument Serif', Georgia, serif",fontSize:16.5,fontStretch:'normal',letterSpacing:'normal',lineHeight:1.5,color:'var(--text-2)',marginBottom:32,maxWidth:'44ch' }}>
               One brief a week, four weeks in October. The threats that actually compromise organisations in 2026 — no vendor pitch, no compliance theater.
             </p>
             <div style={{ display:'flex',flexDirection:'column',gap:12 }}>
