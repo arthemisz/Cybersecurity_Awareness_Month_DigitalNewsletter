@@ -2,7 +2,7 @@
 
 > **Defending at Machine Speed: Cryptography, Resilience & Zero-Trust**  
 > Official 4-Week Campaign Delivery Hub for Cybersecurity Awareness Month (October 2026).
-Link: https://cybersecurity-awareness-newsletter.vercel.app/
+> Link: https://cybersecurity-awareness-newsletter.vercel.app/
 ---
 
 ## ✦ 4-Week Campaign Architecture
