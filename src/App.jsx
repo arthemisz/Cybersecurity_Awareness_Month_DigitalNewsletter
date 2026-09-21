@@ -134,9 +134,10 @@ const WEEKS = [
     label: 'Week 1',
     navLabel: 'Week 1 — Identity',
     tag: 'Identity & Authentication',
-    dateRange: 'OCT 01 — OCT 07, 2026',
-    title: 'Week 1: Identity & Authentication',
-    description: 'Eliminating static credentials, hardware-bound passkeys, FIDO2 tokens, and vault hygiene. Defending against modern credential-stuffing and phishing proxies.',
+    dateRange: 'Oct 01 – Oct 07, 2026',
+    title: 'Identity & Authentication',
+    heroTitle: 'Eliminating Static Credentials',
+    description: 'Passkeys replace memorised secrets with cryptographic proof anchored into your device\u2019s secure hardware enclave. A private key that never leaves the chip cannot be phished, stuffed, or sprayed — collapsing the single largest attack surface in enterprise security to near zero.',
     cards: CARDS.filter(c => c.week === 1),
   },
   {
@@ -145,9 +146,10 @@ const WEEKS = [
     label: 'Week 2',
     navLabel: 'Week 2 — Deception',
     tag: 'Social Engineering & AI Deception',
-    dateRange: 'OCT 08 — OCT 14, 2026',
-    title: 'Week 2: Social Engineering & AI Deception',
-    description: 'Synthetic executive voice clones, physical quishing stickers in corporate lobbies, and RFC 5322 email header forensics.',
+    dateRange: 'Oct 08 – Oct 14, 2026',
+    title: 'Social Engineering & AI Deception',
+    heroTitle: 'Synthetic Voices, Forged Origins',
+    description: 'Three seconds of sampled audio is now sufficient to synthesise a voice indistinguishable from your CFO\u2019s. Adhesive QR overlays redirect from legitimate lobby terminals to credential harvesters that bypass every email gateway. Trust requires out-of-band verification — always.',
     cards: CARDS.filter(c => c.week === 2),
   },
   {
@@ -156,9 +158,10 @@ const WEEKS = [
     label: 'Week 3',
     navLabel: 'Week 3 — Systems',
     tag: 'Systems & Patchwork',
-    dateRange: 'OCT 15 — OCT 21, 2026',
-    title: 'Week 3: Systems & Patchwork',
-    description: 'Sub-4-hour zero-day vulnerability weaponization, unvetted browser extensions, and shadow IT sanitization.',
+    dateRange: 'Oct 15 – Oct 21, 2026',
+    title: 'Systems & Patchwork',
+    heroTitle: 'Four Hours to Weaponisation',
+    description: 'The interval between CVE disclosure and automated bot exploitation has collapsed to under four hours. Every unrebooted workstation, every unapproved browser extension with all-site permissions, every shadow SaaS account connected to a corporate inbox is an open egress channel.',
     cards: CARDS.filter(c => c.week === 3),
   },
   {
@@ -167,12 +170,58 @@ const WEEKS = [
     label: 'Week 4',
     navLabel: 'Week 4 — Response',
     tag: 'Incident Readiness & Response',
-    dateRange: 'OCT 22 — OCT 28, 2026',
-    title: 'Week 4: Incident Readiness & Response',
-    description: 'Immutable 3-2-1 air-gapped backup testing, RAM volatile forensics preservation, and blameless isolation drills.',
+    dateRange: 'Oct 22 – Oct 28, 2026',
+    title: 'Incident Readiness & Response',
+    heroTitle: 'Assume the Breach Already Happened',
+    description: 'Lateral movement begins within forty-two minutes of initial compromise. Survival is decided by containment speed: isolate the network interface, preserve volatile RAM for forensics, and report without fear of reprisal. If you cannot restore from your backup in a drill, you do not have a backup.',
     cards: CARDS.filter(c => c.week === 4),
   },
 ];
+
+/* ─────────────────────────────────────────────────────────────────────
+   EDITORIAL DROP CAP — renders the first letter in Imperial Script
+───────────────────────────────────────────────────────────────────── */
+function EditorialHeadline({ text, className = '' }) {
+  if (!text || text.length === 0) return null;
+  const firstLetter = text.charAt(0);
+  const rest = text.slice(1);
+
+  return (
+    <h2 className={`week-hero-title ${className}`}>
+      <span className="week-drop-cap">{firstLetter}</span>
+      {rest}
+    </h2>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   WEEK HERO SECTION — Shopify Editions editorial typography
+───────────────────────────────────────────────────────────────────── */
+function WeekHero({ week }) {
+  return (
+    <div className="week-hero">
+      <div className="week-hero-inner">
+        {/* Eyebrow badges */}
+        <div className="week-hero-eyebrow">
+          <span className="week-hero-badge">Week {String(week.number).padStart(2, '0')}</span>
+          <span className="week-hero-date">{week.dateRange}</span>
+          <span className="week-hero-tag">{week.tag}</span>
+        </div>
+
+        {/* Editorial headline with drop capital */}
+        <EditorialHeadline text={week.heroTitle} />
+
+        {/* Description in editorial serif */}
+        <p className="week-hero-description">
+          {week.description}
+        </p>
+
+        {/* Thin rule */}
+        <div className="week-hero-rule" />
+      </div>
+    </div>
+  );
+}
 
 /* ─────────────────────────────────────────────────────────────────────
    HOOK: parallax — returns how far the hero bg should translate
@@ -286,7 +335,7 @@ function Checklist({ card }) {
           onClick={() => toggle(i)} role="checkbox" aria-checked={done.includes(i)}
           tabIndex={0} onKeyDown={e => (e.key === ' ' || e.key === 'Enter') && toggle(i)}>
           <div className="cb">
-            {done.includes(i) && <Check size={10} strokeWidth={3} color="#000" />}
+            {done.includes(i) && <Check size={10} strokeWidth={3} color="var(--bg)" />}
           </div>
           <span className="cl">{t}</span>
         </div>
@@ -321,26 +370,26 @@ function Drawer({ card, onClose }) {
         <div style={{ padding: '28px 32px 48px' }}>
           {/* Meta */}
           <div style={{ display:'flex',alignItems:'center',gap:8,marginBottom:14,flexWrap:'wrap' }}>
-            <span style={{ fontSize:12,color:'var(--text-2)' }}>{card.weekLabel}</span>
+            <span style={{ fontFamily:"'Plus Jakarta Sans', sans-serif",fontSize:12,fontWeight:600,color:'var(--text-2)' }}>{card.weekLabel}</span>
             <span style={{ color:'var(--text-3)' }}>·</span>
-            <span style={{ fontSize:12,color:'var(--text-2)' }}>{card.tag}</span>
+            <span style={{ fontFamily:"'Plus Jakarta Sans', sans-serif",fontSize:12,fontWeight:600,color:'var(--text-2)' }}>{card.tag}</span>
             <span style={{ color:'var(--text-3)' }}>·</span>
-            <span style={{ fontSize:12,color:'var(--text-2)' }}>{card.readMin} min read</span>
+            <span style={{ fontFamily:"'Plus Jakarta Sans', sans-serif",fontSize:12,fontWeight:600,color:'var(--text-2)' }}>{card.readMin} min read</span>
           </div>
 
           {/* Title */}
-          <h2 style={{ fontSize:'clamp(1.5rem,3.5vw,2.2rem)',fontWeight:700,letterSpacing:'-0.035em',lineHeight:1.15,color:'var(--text)',marginBottom:16 }}>
+          <h2 style={{ fontFamily:"'Instrument Serif', Georgia, serif",fontSize:'clamp(1.5rem,3.5vw,2.2rem)',fontWeight:400,letterSpacing:'-0.02em',lineHeight:1.15,color:'var(--text)',marginBottom:16 }}>
             {card.title}
           </h2>
 
           {/* Excerpt */}
-          <p style={{ fontSize:14.5,color:'var(--text-2)',lineHeight:1.8,marginBottom:28 }}>
+          <p style={{ fontFamily:"'Instrument Serif', Georgia, serif",fontSize:15,color:'var(--text-2)',lineHeight:1.8,marginBottom:28,letterSpacing:'-0.01em' }}>
             {card.excerpt}
           </p>
 
           {/* Stat */}
           <div style={{ borderTop:'1px solid var(--border)',borderBottom:'1px solid var(--border)',padding:'22px 0',marginBottom:28 }}>
-            <div style={{ fontSize:'clamp(2.2rem,5vw,3.5rem)',fontWeight:700,letterSpacing:'-0.045em',color:'var(--text)',lineHeight:1 }}>
+            <div style={{ fontFamily:"'Plus Jakarta Sans', sans-serif",fontSize:'clamp(2.2rem,5vw,3.5rem)',fontWeight:700,letterSpacing:'-0.045em',color:'var(--text)',lineHeight:1 }}>
               {card.stat.value}
             </div>
             <div style={{ fontSize:13,color:'var(--text-2)',marginTop:7,maxWidth:'44ch',lineHeight:1.55 }}>
@@ -349,7 +398,7 @@ function Drawer({ card, onClose }) {
           </div>
 
           {/* Checklist */}
-          <div style={{ fontSize:12,color:'var(--text-3)',marginBottom:10 }}>This week's actions</div>
+          <div style={{ fontFamily:"'Plus Jakarta Sans', sans-serif",fontSize:12,fontWeight:600,color:'var(--text-3)',marginBottom:10,letterSpacing:'0.04em' }}>This week's actions</div>
           <Checklist card={card} />
         </div>
       </div>
@@ -378,10 +427,10 @@ function RegisterForm() {
 
   if (status === 'done') return (
     <div style={{ textAlign:'center',padding:'36px 0' }}>
-      <div style={{ width:40,height:40,borderRadius:'50%',background:'rgba(255,255,255,0.08)',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 16px' }}>
+      <div style={{ width:40,height:40,borderRadius:'50%',background:'rgba(128,128,128,0.1)',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 16px' }}>
         <Check size={18} color="var(--text)" strokeWidth={2.5} />
       </div>
-      <div style={{ fontWeight:600,color:'var(--text)',marginBottom:6 }}>Registered.</div>
+      <div style={{ fontFamily:"'Plus Jakarta Sans', sans-serif",fontWeight:600,color:'var(--text)',marginBottom:6 }}>Registered.</div>
       <div style={{ fontSize:13,color:'var(--text-2)' }}>
         Week 1 brief goes to <span style={{ color:'var(--text)' }}>{form.email}</span> on October 1.
       </div>
@@ -424,37 +473,32 @@ function RegisterForm() {
 export default function App() {
   const [activeSection, setActiveSection] = useState('week-1');
   const [active, setActive]               = useState(null);
-  const [theme, setTheme]                 = useState('dark');
+  const [theme, setTheme]                 = useState(() => {
+    // Persist theme preference
+    try {
+      return localStorage.getItem('sd_theme') || 'dark';
+    } catch { return 'dark'; }
+  });
   const navScrolled                       = useNavScrolled();
-  const parallaxOffset                    = useParallax(0.32); // hero bg moves 32% of scroll speed
+  const parallaxOffset                    = useParallax(0.32);
 
-  // Theme
+  // Theme — toggle .light class on <html> and sync body
   useEffect(() => {
-    const r = document.documentElement;
+    const root = document.documentElement;
     if (theme === 'light') {
-      r.style.setProperty('--bg',         '#f4f4f6');
-      r.style.setProperty('--surface',    '#ffffff');
-      r.style.setProperty('--surface-2',  '#f0f0f3');
-      r.style.setProperty('--border',     'rgba(0,0,0,0.07)');
-      r.style.setProperty('--border-mid', 'rgba(0,0,0,0.13)');
-      r.style.setProperty('--text',       '#111113');
-      r.style.setProperty('--text-2',     '#71717a');
-      r.style.setProperty('--text-3',     '#a1a1aa');
-      document.body.style.background = '#f4f4f6';
-      document.body.style.color = '#111113';
+      root.classList.add('light');
     } else {
-      r.style.setProperty('--bg',         '#0a0a0b');
-      r.style.setProperty('--surface',    '#111113');
-      r.style.setProperty('--surface-2',  '#18181b');
-      r.style.setProperty('--border',     'rgba(255,255,255,0.07)');
-      r.style.setProperty('--border-mid', 'rgba(255,255,255,0.12)');
-      r.style.setProperty('--text',       '#ececec');
-      r.style.setProperty('--text-2',     '#71717a');
-      r.style.setProperty('--text-3',     '#3f3f46');
-      document.body.style.background = '#0a0a0b';
-      document.body.style.color = '#ececec';
+      root.classList.remove('light');
     }
+    // Sync body background for scroll overscroll color
+    document.body.style.background = theme === 'light' ? '#E5E5DC' : '#0a0a0b';
+    document.body.style.color = theme === 'light' ? '#000000' : '#ececec';
+    try { localStorage.setItem('sd_theme', theme); } catch {}
   }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme(t => t === 'dark' ? 'light' : 'dark');
+  }, []);
 
   // Smooth scroll with offset for sticky top bars
   const scrollToSection = useCallback((id) => {
@@ -490,7 +534,7 @@ export default function App() {
 
   return (
     <>
-      {/* ── TOP NAV ─────────────────────────────────────────────── */}
+      {/* ── TOP NAV — Glassmorphism ──────────────────────────────── */}
       <nav className={`nav ${navScrolled ? 'scrolled' : ''}`}>
         <a href="#" className="nav-logo" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
           <Shield size={18} color="var(--text)" strokeWidth={2} />
@@ -514,11 +558,9 @@ export default function App() {
             Register free
           </button>
           <button
-            onClick={() => setTheme(t => t === 'dark' ? 'light' : 'dark')}
-            aria-label="Toggle theme"
-            style={{ background:'none',border:'none',cursor:'pointer',color:'var(--text-2)',display:'flex',alignItems:'center',padding:'6px',marginLeft:4,borderRadius:6,transition:'color 0.15s' }}
-            onMouseEnter={e => e.currentTarget.style.color='var(--text)'}
-            onMouseLeave={e => e.currentTarget.style.color='var(--text-2)'}
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+            className="theme-toggle-btn"
           >
             {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
           </button>
@@ -545,11 +587,11 @@ export default function App() {
           </div>
 
           <h1 className="hero-title">
-            Cybersecurity<br />Awareness<br />Month
+            <span className="hero-drop-cap">C</span>ybersecurity{'\u2002'}Awareness{'\u2002'}Month
           </h1>
 
           <p className="hero-sub">
-            Four weeks. Four threat domains. One continuous operational brief — scroll through all 4 campaign milestones below.
+            Four weeks of operational intelligence across identity, social engineering, systems hardening, and incident response — one brief at a time.
           </p>
 
           <div className="hero-actions">
@@ -616,16 +658,8 @@ export default function App() {
       <main className="campaign-container">
         {WEEKS.map((week) => (
           <section key={week.id} id={week.id} className="week-section">
-            <div className="week-header">
-              <div className="week-header-eyebrow">
-                <span className="week-badge">WEEK 0{week.number}</span>
-                <span className="week-date">{week.dateRange}</span>
-                <span className="week-dot">•</span>
-                <span className="week-tag-badge">{week.tag}</span>
-              </div>
-              <h2 className="week-title">{week.title}</h2>
-              <p className="week-desc">{week.description}</p>
-            </div>
+            {/* Editorial hero/description for this week */}
+            <WeekHero week={week} />
 
             <div className="week-grid">
               {week.cards.map((card, i) => (
@@ -647,10 +681,10 @@ export default function App() {
 
           {/* Left copy */}
           <div>
-            <h2 style={{ fontSize:'clamp(1.9rem,4vw,3rem)',fontWeight:700,letterSpacing:'-0.045em',lineHeight:1.1,color:'var(--text)',marginBottom:18 }}>
-              Register your team.
+            <h2 style={{ fontFamily:"'Instrument Serif', Georgia, serif",fontSize:'clamp(1.9rem,4vw,3rem)',fontWeight:400,letterSpacing:'-0.02em',lineHeight:1.1,color:'var(--text)',marginBottom:18 }}>
+              <span style={{ fontFamily:"'Imperial Script', cursive",fontSize:'1.35em',lineHeight:0.85,marginRight:'0.02em' }}>R</span>egister your team.
             </h2>
-            <p style={{ fontSize:14.5,color:'var(--text-2)',lineHeight:1.8,marginBottom:32,maxWidth:'40ch' }}>
+            <p style={{ fontFamily:"'Instrument Serif', Georgia, serif",fontSize:15,color:'var(--text-2)',lineHeight:1.8,marginBottom:32,maxWidth:'40ch',letterSpacing:'-0.01em' }}>
               One brief a week, four weeks in October. The threats that actually compromise organisations in 2026 — no vendor pitch, no compliance theater.
             </p>
             <div style={{ display:'flex',flexDirection:'column',gap:12 }}>
@@ -663,9 +697,9 @@ export default function App() {
                 <div key={label} style={{ display:'flex',alignItems:'center',justifyContent:'space-between',gap:16,padding:'12px 0',borderBottom:'1px solid var(--border)' }}>
                   <div style={{ display:'flex',alignItems:'center',gap:8 }}>
                     <Check size={13} color="var(--text-2)" strokeWidth={2.5} />
-                    <span style={{ fontSize:13.5,color:'var(--text-2)' }}>{label}</span>
+                    <span style={{ fontFamily:"'Plus Jakarta Sans', sans-serif",fontSize:13.5,fontWeight:500,color:'var(--text-2)' }}>{label}</span>
                   </div>
-                  <span style={{ fontSize:12,color:'var(--text-3)',flexShrink:0 }}>{date}</span>
+                  <span style={{ fontFamily:"'Plus Jakarta Sans', sans-serif",fontSize:12,fontWeight:600,color:'var(--text-3)',flexShrink:0 }}>{date}</span>
                 </div>
               ))}
             </div>
@@ -674,8 +708,8 @@ export default function App() {
           {/* Right: form */}
           <div style={{ background:'var(--surface)',border:'1px solid var(--border-mid)',borderRadius:14,padding:'28px 28px 32px' }}>
             <div style={{ marginBottom:22 }}>
-              <div style={{ fontWeight:600,fontSize:15,color:'var(--text)',marginBottom:4 }}>Join the program</div>
-              <div style={{ fontSize:13,color:'var(--text-2)' }}>1,240+ defenders enrolled · free forever</div>
+              <div style={{ fontFamily:"'Plus Jakarta Sans', sans-serif",fontWeight:700,fontSize:15,color:'var(--text)',marginBottom:4 }}>Join the program</div>
+              <div style={{ fontFamily:"'Plus Jakarta Sans', sans-serif",fontSize:13,fontWeight:500,color:'var(--text-2)' }}>1,240+ defenders enrolled · free forever</div>
             </div>
             <RegisterForm />
           </div>
@@ -686,9 +720,9 @@ export default function App() {
       <footer style={{ borderTop:'1px solid var(--border)',padding:'22px 48px',display:'flex',alignItems:'center',justifyContent:'space-between',flexWrap:'wrap',gap:8 }}>
         <div style={{ display:'flex',alignItems:'center',gap:8 }}>
           <Shield size={14} color="var(--text-3)" />
-          <span style={{ fontSize:12.5,color:'var(--text-3)' }}>Sec Dispatch 2026</span>
+          <span style={{ fontFamily:"'Plus Jakarta Sans', sans-serif",fontSize:12.5,fontWeight:500,color:'var(--text-3)' }}>Sec Dispatch 2026</span>
         </div>
-        <span style={{ fontSize:12.5,color:'var(--text-3)' }}>Free · No tracking · Nairobi, Kenya</span>
+        <span style={{ fontFamily:"'Plus Jakarta Sans', sans-serif",fontSize:12.5,fontWeight:500,color:'var(--text-3)' }}>Free · No tracking · Nairobi, Kenya</span>
       </footer>
 
       {/* ── DRAWER ───────────────────────────────────────────────── */}
