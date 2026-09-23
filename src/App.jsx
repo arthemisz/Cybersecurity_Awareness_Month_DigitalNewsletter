@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Shield, Check, X, Sun, Moon, ArrowDown } from 'lucide-react';
 import WeekNavigation from './components/WeekNavigation';
+import SubscribeForm from './components/SubscribeForm';
 
 /* ─────────────────────────────────────────────────────────────────────
    DATA
@@ -411,60 +412,13 @@ function Drawer({ card, onClose }) {
    REGISTRATION FORM
 ───────────────────────────────────────────────────────────────────── */
 function RegisterForm() {
-  const [form, setForm] = useState({ name: '', email: '', team: '' });
-  const [status, setStatus] = useState('idle');
-  const [errors, setErrors] = useState({});
-
-  const submit = e => {
-    e.preventDefault();
-    const errs = {};
-    if (!form.name.trim()) errs.name = 'Required';
-    if (!form.email.includes('@')) errs.email = 'Enter a valid email';
-    if (Object.keys(errs).length) { setErrors(errs); return; }
-    setErrors({});
-    setStatus('loading');
-    setTimeout(() => setStatus('done'), 1000);
-  };
-
-  if (status === 'done') return (
-    <div style={{ textAlign:'center',padding:'36px 0' }}>
-      <div style={{ width:40,height:40,borderRadius:'50%',background:'rgba(128,128,128,0.1)',display:'flex',alignItems:'center',justifyContent:'center',margin:'0 auto 16px' }}>
-        <Check size={18} color="var(--text)" strokeWidth={2.5} />
-      </div>
-      <div style={{ fontFamily:"'Plus Jakarta Sans', sans-serif",fontWeight:600,color:'var(--text)',marginBottom:6 }}>Registered.</div>
-      <div style={{ fontSize:13,color:'var(--text-2)' }}>
-        Week 1 brief goes to <span style={{ color:'var(--text)' }}>{form.email}</span> on October 1.
-      </div>
-    </div>
-  );
-
   return (
-    <form onSubmit={submit} noValidate style={{ display:'flex',flexDirection:'column',gap:12 }}>
-      <div style={{ display:'grid',gridTemplateColumns:'1fr 1fr',gap:10 }} className="form-cols">
-        <div>
-          <input placeholder="Your name" value={form.name}
-            onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-            className={`input ${errors.name ? 'err' : ''}`} />
-          {errors.name && <div style={{ fontSize:11.5,color:'#f87171',marginTop:4 }}>{errors.name}</div>}
-        </div>
-        <div>
-          <input type="email" placeholder="Work email" value={form.email}
-            onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-            className={`input ${errors.email ? 'err' : ''}`} />
-          {errors.email && <div style={{ fontSize:11.5,color:'#f87171',marginTop:4 }}>{errors.email}</div>}
-        </div>
-      </div>
-      <input placeholder="Team (optional)" value={form.team}
-        onChange={e => setForm(f => ({ ...f, team: e.target.value }))}
-        className="input" />
-      <button type="submit" className="btn btn-white" disabled={status === 'loading'}
-        style={{ marginTop:4,width:'100%' }}>
-        {status === 'loading' ? 'Registering…' : 'Join the program — free'}
-      </button>
-      <p style={{ fontSize:11.5,color:'var(--text-3)',textAlign:'center' }}>
-        Four emails in October. No sales, no tracking. Unsubscribe any time.
-      </p>
-    </form>
+    <SubscribeForm
+      apiUrl="/api/subscribe"
+      onSuccess={(email) => {
+        // Optional: analytics, confetti, etc.
+      }}
+    />
   );
 }
 
