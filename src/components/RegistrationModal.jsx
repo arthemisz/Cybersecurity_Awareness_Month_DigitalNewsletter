@@ -36,12 +36,26 @@ export default function RegistrationModal({ isOpen, onClose, onRegisterSuccess }
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name || !email) return;
 
     setIsSubmitting(true);
-    setTimeout(() => {
+
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.trim().toLowerCase() }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        console.error('Subscription failed:', data.error || res.status);
+        setIsSubmitting(false);
+        return;
+      }
+
       const generatedId = `DEF-2026-${Math.floor(1000 + Math.random() * 9000)}`;
       setEnrolledBadge({
         id: generatedId,
@@ -62,7 +76,10 @@ export default function RegistrationModal({ isOpen, onClose, onRegisterSuccess }
           colors: ['#00E5FF', '#10B981', '#A855F7']
         });
       } catch {}
-    }, 850);
+    } catch (err) {
+      console.error('Network error:', err);
+      setIsSubmitting(false);
+    }
   };
 
   const handleCopyBadge = () => {
